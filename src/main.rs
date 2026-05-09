@@ -1,4 +1,8 @@
+mod config;
+
+use std::fs::File;
 use std::net::Ipv4Addr;
+use std::path::PathBuf;
 use std::thread::sleep;
 use std::time::Duration;
 use anyhow::Context;
@@ -12,7 +16,9 @@ use pnet::packet::ip::IpNextHeaderProtocols;
 use pnet::packet::ipv4::MutableIpv4Packet;
 use pnet::packet::MutablePacket;
 use pnet::packet::tcp::{MutableTcpPacket, TcpFlags};
+use serde::{Deserialize, Serialize};
 use simple_logger::SimpleLogger;
+use crate::config::AppConfig;
 
 fn main() -> Result<(), anyhow::Error> {
     SimpleLogger::new().env().without_timestamps().init()?;
@@ -42,7 +48,10 @@ enum Commands {
 
 #[derive(Args)]
 struct RunOpt {
-    #[arg(short='i', long)]
+    #[arg(short = 'c', long)]
+    config_file: Option<PathBuf>,
+
+    #[arg(short = 'i', long, required = true)]
     interface: String
 }
 
@@ -56,12 +65,23 @@ struct Endpoint {
 fn run(opt: RunOpt) -> Result<(), anyhow::Error> {
     info!("Running on {}", opt.interface);
 
+    if let Some(path) = opt.config_file {
+        let reader = File::open(path.as_path())?;
+        let app_config: AppConfig = serde_yaml::from_reader(reader)?;
+        println!("{app_config:#?}");
+
+        println!("{}", app_config.params.sample_and_render(&app_config.http.req.headers.host));
+    }
+
+
+    return Ok(());
+
     let interface = interfaces()
         .into_iter()
         .find(|iface| iface.name == opt.interface)
         .context("No such interface")?;
 
-    let config = Config::default();
+    let config = pnet::datalink::Config::default();
 
     let (mut tx, rx) = match channel(&interface, config) {
         Ok(Channel::Ethernet(tx, rx)) => (tx, rx),

@@ -1,0 +1,47 @@
+test:
+  vu: 10
+
+http:
+  req:
+    headers:
+      :host:
+        - ["{host}", 1]
+      :path:
+        - ["http://{host}/api/search?q={search_param}", 0.5]
+        - ["http://{host}/login", 0.5]
+      :method:
+        - ["GET", 0.5]
+        - ["POST", 0.5]
+      Connection: close
+      User-Agent: httpgen/0.1
+      Accept:
+        - ["text/plain", 0.1]
+        - ["application/json", 0.5]
+        - ["application/xml", 0]
+    body:
+      - ["{ \"hello\": \"world\" }", 0.5]
+      - ["{ \"abc\": \"def\" }", 0.5]
+  res:
+    headers:
+      :status:
+        - [ "HTTP/1.1 200 OK", 1]
+      Content-Type:
+        - [ "application/json", 0.5]
+        - [ "text/plain", 0]
+    body:
+      - ["HELLO WORLD", 0]
+
+params:
+  host:
+    - ["example.local", 0.5]
+    - ["hello.world", 0.5]
+  search_param:
+    - ["abc", 0.5]
+    - ["zxc", 0.5]
+
+src:
+  cidr: 192.168.0.0/16
+  port: 10000-50000
+dst:
+  cidr: 172.1.2.3/32
+  port: 80-80
