@@ -4,6 +4,7 @@ mod runner;
 mod transport;
 mod vuser;
 
+use crate::config::AppConfig;
 use crate::runner::Runner;
 use anyhow::Context;
 use clap::{Args, Parser, Subcommand};
@@ -56,6 +57,9 @@ struct RunOpt {
 
     #[arg(long, default_value_t = 1)]
     eps: u64,
+
+    #[arg(long)]
+    vu: Option<usize>,
 }
 
 fn init() -> Result<(), anyhow::Error> {
@@ -75,7 +79,7 @@ fn init() -> Result<(), anyhow::Error> {
 fn run(opt: RunOpt) -> Result<(), anyhow::Error> {
     info!("Running on {}", opt.interface);
 
-    let app_config = match opt.config_file {
+    let mut app_config: AppConfig = match opt.config_file {
         Some(config_file) => {
             info!("Loaded config file: {}", config_file.display());
             serde_yaml::from_reader(File::open(config_file)?)?
@@ -85,6 +89,11 @@ fn run(opt: RunOpt) -> Result<(), anyhow::Error> {
             serde_yaml::from_str(DEFAULT_CONFIG_YAML)?
         }
     };
+
+    if let Some(vu) = opt.vu {
+        anyhow::ensure!(vu > 0, "vu must be greater than 0");
+        app_config.test.vu = vu;
+    }
 
     let runner = Runner::new(app_config, opt.interface, opt.eps);
     runner.run()

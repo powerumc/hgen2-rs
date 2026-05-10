@@ -6,23 +6,25 @@
 - 네트워크 패킷 탐지 시뮬레이션
 - TAP 기반 네트워크 미러링 환경 시뮬레이션
 - 실제 NIC로 전송되는 L2 이더넷 프레임 기반 트래픽 시뮬레이션
+- 의미있는 HTTP 요청/응답 트래픽 시뮬레이션
 
 ## Usage
+
+릴리즈 페이지에서 다운로드할 수 있습니다.  
+https://github.com/powerumc/httpgen-rs/releases
 
 기본 설정 파일 생성:
 
 ```bash
-cargo run -- init
+./httpgen init
 ```
 
 실행:
 
 ```bash
-sudo cargo run -- run -i <interface> -c httpgen.config.yaml --eps 1000
+./httpgen run -i <interface> --eps 100 --vu 10
 ```
 
-`-c/--config-file`을 생략하면 빌드에 포함된 기본 `httpgen.config.yaml`을 사용합니다.
-raw datalink 송신 권한이 필요하므로 일반적으로 `sudo`가 필요합니다.
 
 ## Config
 
