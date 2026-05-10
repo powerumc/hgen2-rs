@@ -5,16 +5,19 @@ http:
   req:
     headers:
       :host:
+        # 배열은 값, 확률 가중치
         - ["{host}", 1]
       :path:
         - ["http://{host}/api/search?q={search_param}", 0.5]
         - ["http://{host}/login", 0.5]
       :method:
+        # 0.5 확률로 GET 또는 POST값을 반환
         - ["GET", 0.5]
         - ["POST", 0.5]
       Connection: close
       User-Agent: httpgen/0.1
       Accept:
+        # 0.1 확률로 "text/plain", 0.5 확률로 "application/json", fallback은 "application/xml"
         - ["text/plain", 0.1]
         - ["application/json", 0.5]
         - ["application/xml", 0]

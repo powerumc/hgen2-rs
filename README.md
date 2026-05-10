@@ -2,6 +2,11 @@
 
 `httpgen`은 NIC에 raw Ethernet/TCP/HTTP 패킷을 직접 생성해 전송하는 HTTP traffic generator입니다.
 
+사용 사례
+- 네트워크 패킷 탐지 시뮬레이션
+- TAP 기반 네트워크 미러링 환경 시뮬레이션
+- 실제 NIC로 전송되는 L2 이더넷 프레임 기반 트래픽 시뮬레이션
+
 ## Usage
 
 기본 설정 파일 생성:
