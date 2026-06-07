@@ -15,7 +15,7 @@ http:
         - ["GET", 0.5]
         - ["POST", 0.5]
       Connection: close
-      User-Agent: httpgen/0.1
+      User-Agent: hgen2/0.1
       Accept:
         # 0.1 확률로 "text/plain", 0.5 확률로 "application/json", fallback은 "application/xml"
         - ["text/plain", 0.1]

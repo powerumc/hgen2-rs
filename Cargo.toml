@@ -1,7 +1,13 @@
 [package]
-name = "httpgen"
-version = "0.1.0"
+name = "hgen2-rs"
+version = "0.1.1"
 edition = "2024"
+description = "OSI Layer 2 Ethernet traffic generator that emits raw Ethernet/TCP/HTTP frames through a NIC"
+repository = "https://github.com/powerumc/hgen2-rs"
+
+[[bin]]
+name = "hgen2"
+path = "src/main.rs"
 
 [dependencies]
 clap = { version = "4.6", features = ["derive", "color"] }

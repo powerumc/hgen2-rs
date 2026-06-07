@@ -1,28 +1,28 @@
-# httpgen
+# hgen2
 
-`httpgen`은 NIC에 raw Ethernet/TCP/HTTP 패킷을 직접 생성해 전송하는 HTTP traffic generator입니다.
+`hgen2`는 OSI 7계층 중 Layer 2에서 raw Ethernet/TCP/HTTP 패킷을 직접 생성해 NIC로 전송하는 L2 traffic generator입니다.
 
 사용 사례
 - 네트워크 패킷 탐지 시뮬레이션
 - TAP 기반 네트워크 미러링 환경 시뮬레이션
-- 실제 NIC로 전송되는 L2 이더넷 프레임 기반 트래픽 시뮬레이션
-- 의미있는 HTTP 요청/응답 트래픽 시뮬레이션
+- 실제 NIC로 전송되는 L2 이더넷 프레임 기반 트래픽 생성
+- 의미있는 HTTP 요청/응답 페이로드를 담은 이더넷 프레임 생성
 
 ## Usage
 
 릴리즈 페이지에서 다운로드할 수 있습니다.  
-https://github.com/powerumc/httpgen-rs/releases
+https://github.com/powerumc/hgen2-rs/releases
 
 기본 설정 파일 생성:
 
 ```bash
-./httpgen init
+./hgen2 init
 ```
 
 실행:
 
 ```bash
-./httpgen run -i <interface> --eps 100 --vu 10
+./hgen2 run -i <interface> --eps 100 --vu 10
 ```
 
 
