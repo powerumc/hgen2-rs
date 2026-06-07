@@ -15,7 +15,7 @@ use std::fs::File;
 use std::path::PathBuf;
 
 /// 기본 설정 yaml 문자열
-const DEFAULT_CONFIG_YAML: &str = include_str!("../httpgen.config.yaml");
+const DEFAULT_CONFIG_YAML: &str = include_str!("../hgen2.config.yaml");
 
 fn main() -> Result<(), anyhow::Error> {
     SimpleLogger::new()
@@ -63,7 +63,7 @@ struct RunOpt {
 }
 
 fn init() -> Result<(), anyhow::Error> {
-    const FILENAME: &str = "httpgen.config.yaml";
+    const FILENAME: &str = "hgen2.config.yaml";
 
     if fs::exists(FILENAME)? {
         return Err(anyhow::anyhow!("File already exists"));

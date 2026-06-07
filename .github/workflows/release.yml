@@ -47,18 +47,18 @@ jobs:
         run: |
           set -euo pipefail
 
-          package="httpgen-${{ matrix.name }}"
+          package="hgen2-${{ matrix.name }}"
           mkdir -p "dist/${package}"
 
-          cp "target/${{ matrix.target }}/release/httpgen" "dist/${package}/"
-          cp README.md httpgen.config.yaml "dist/${package}/"
+          cp "target/${{ matrix.target }}/release/hgen2" "dist/${package}/"
+          cp README.md hgen2.config.yaml "dist/${package}/"
 
           tar -C dist -czf "dist/${package}.tar.gz" "${package}"
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
-          name: httpgen-${{ matrix.name }}
+          name: hgen2-${{ matrix.name }}
           path: dist/*.tar.gz
           if-no-files-found: error
 
@@ -98,18 +98,18 @@ jobs:
         run: |
           set -euo pipefail
 
-          package="httpgen-${{ matrix.name }}"
+          package="hgen2-${{ matrix.name }}"
           mkdir -p "dist/${package}"
 
-          cp "target/release/httpgen" "dist/${package}/"
-          cp README.md httpgen.config.yaml "dist/${package}/"
+          cp "target/release/hgen2" "dist/${package}/"
+          cp README.md hgen2.config.yaml "dist/${package}/"
 
           tar -C dist -czf "dist/${package}.tar.gz" "${package}"
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
-          name: httpgen-${{ matrix.name }}
+          name: hgen2-${{ matrix.name }}
           path: dist/*.tar.gz
           if-no-files-found: error
 
